@@ -4,16 +4,22 @@ Created on Thu Nov  5 11:51:23 2020
 
 @author: Yung
 """
-# for local files
+# for local files and online data
 import os
 import json
+import io
 
+# for reddit api
 import pandas as pd
 import praw
-
 from urllib.request import urlopen
-import io
+
+# for color analysis
 from colorthief import ColorThief
+import webcolors
+
+import numpy as np
+
 
 class reddit_tools():
     """
@@ -80,7 +86,7 @@ class palette_tools():
         post_bin = io.BytesIO(post_url.read())
         return post_bin
     
-    def get_palette(self, url:str, count:int = 6, qual:int = 10):
+    def get_palette(self, url:str, count:int = 10, qual:int = 10):
         """
 
         Parameters
@@ -95,12 +101,22 @@ class palette_tools():
 
         Returns
         -------
-        None.
+        List of rgb tuples, # of tuples defined by count variable sort by values with close rgb values
 
         """
         post = self.get_url_binary(url)
         ct = ColorThief(post)
-        return ct.get_palette(color_count=count, quality=qual)
+        rgb_list = ct.get_palette(color_count=count, quality=qual)
+        return rgb_list
+    
+    #sorts palette from least grey to most grey
+    def palette_sort(self, palette):
+        palette.sort(key = lambda x: np.sqrt((x[0] - x[1])**2 + (x[1] - x[2])**2 + (x[0] - x[2])**2))
+        return palette
         
+    def rgb_hex_list(self, rgb_list:list):
+        return [webcolors.rgb_to_hex(color) for color in rgb_list]
+    
+    
         
         
