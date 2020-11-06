@@ -117,6 +117,3 @@ class palette_tools():
     def rgb_hex_list(self, rgb_list:list):
         return [webcolors.rgb_to_hex(color) for color in rgb_list]
     
-    
-        
-        
