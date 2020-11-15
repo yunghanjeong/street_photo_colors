@@ -9,7 +9,7 @@ The main goal of this repository to study the color compositiion of street photo
 5. Plot color swatches
 
 ## Medium Article
-
+[article](https://yungh-jeong.medium.com/colors-of-street-photography-from-reddit-d5f2f3253e3c?sk=ae29bc3acab69d8dece9b5934e78ecea)
 
 ## Repository Structure
     .
